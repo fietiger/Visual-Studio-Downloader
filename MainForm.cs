@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace VisualStudioDownloader
 {
@@ -211,14 +212,13 @@ namespace VisualStudioDownloader
 
         private void btnSelectDir_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog {
-                ShowNewFolderButton = true,
-                RootFolder = Environment.SpecialFolder.Desktop,
-                SelectedPath = AppDomain.CurrentDomain.BaseDirectory
-           };
-            if (dialog.ShowDialog() == DialogResult.OK)
+            var dlg = new CommonOpenFileDialog();
+            dlg.IsFolderPicker = true;
+            dlg.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                this.txtSaveDirectory.Text = dialog.SelectedPath;
+                this.txtSaveDirectory.Text = dlg.FileName;
             }
         }
 
@@ -533,7 +533,8 @@ namespace VisualStudioDownloader
         {
             OpenFileDialog dialog = new OpenFileDialog
             {
-
+                DefaultExt = ".vsconfig",
+                Filter = "配置文件|*.vsconfig"
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
