@@ -529,6 +529,71 @@ namespace VisualStudioDownloader
             btnSave_ConfigClick();
         }
 
+        private void btnSelVsconfig_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                this.tbVsConfigFilePath.Text = dialog.FileName;
+            }
+        }
+
+        private void btnBuild2_Click(object sender, EventArgs e)
+        {
+            if (cbxVersion.SelectedIndex == -1)
+            {
+                MessageBoxEx.Show(this, "请选择程序版本", "提示");
+                return;
+            }
+
+            if (txtSaveDirectory.Text.ToString() == "")
+            {
+                MessageBoxEx.Show(this, "请选择缓存目录", "提示");
+                return;
+            }
+
+            if (!Directory.Exists(txtSaveDirectory.Text.Trim()))
+            {
+                MessageBoxEx.Show(this, "缓存目录不存在，请检查后重试", "提示");
+                return;
+            }
+            string remoteFile = string.Empty;
+
+            if (cbxVersion.SelectedIndex == 0)
+            {
+                remoteFile = vs_community;
+            }
+
+            if (cbxVersion.SelectedIndex == 1)
+            {
+                remoteFile = vs_professional;
+            }
+
+            if (cbxVersion.SelectedIndex == 2)
+            {
+                remoteFile = vs_enterprise;
+            }
+
+            string localFile = this.baseDownPath + @"\" + this.GetFileNameByVersionType();
+
+            if (!File.Exists(localFile))
+                this.DownloadFile(remoteFile, localFile, new Action<int>(this.DownloadProgressChanged),
+                    new Action(this.DownloadFileCompleted));
+
+
+            if (MessageBoxEx.Show("是否确认使用配置文件安装?", "提示", MessageBoxButtons.YesNo) != DialogResult.No)
+            {
+                string text = "--config " +"\"" + this.tbVsConfigFilePath.Text +"\"";
+                var language = cbxLanguage.SelectedItem as LanguageItem;
+                string text2 = GetFileNameByVersionType() + " --layout " + txtSaveDirectory.Text.Trim() + " " + text +
+                               $" --lang {language.locale}";
+                txtcmdLogTextArea.Text = text2;
+            }
+        }
+
         //private void InitializeComponent()
         //{
         //    this.SuspendLayout();

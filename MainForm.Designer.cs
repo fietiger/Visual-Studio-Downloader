@@ -43,8 +43,6 @@ namespace VisualStudioDownloader
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Visual Studio 核心编辑器");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Azure 开发");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("数据存储和处理");
@@ -76,6 +74,13 @@ namespace VisualStudioDownloader
             this.btnBuild = new System.Windows.Forms.Button();
             this.cbxLanguage = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbVsConfigFilePath = new System.Windows.Forms.TextBox();
+            this.btnSelVsconfig = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnStart2 = new System.Windows.Forms.Button();
+            this.btnBuild2 = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -83,7 +88,7 @@ namespace VisualStudioDownloader
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.Size = new System.Drawing.Size(59, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "Version：";
             // 
@@ -92,7 +97,7 @@ namespace VisualStudioDownloader
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 40);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.Size = new System.Drawing.Size(71, 12);
             this.label2.TabIndex = 1;
             this.label2.Text = "Directory：";
             // 
@@ -101,7 +106,7 @@ namespace VisualStudioDownloader
             this.txtSaveDirectory.Enabled = false;
             this.txtSaveDirectory.Location = new System.Drawing.Point(83, 37);
             this.txtSaveDirectory.Name = "txtSaveDirectory";
-            this.txtSaveDirectory.Size = new System.Drawing.Size(330, 20);
+            this.txtSaveDirectory.Size = new System.Drawing.Size(330, 21);
             this.txtSaveDirectory.TabIndex = 2;
             // 
             // btnSelectDir
@@ -124,7 +129,7 @@ namespace VisualStudioDownloader
             "Visual Studio Enterprise 2022"});
             this.cbxVersion.Location = new System.Drawing.Point(83, 10);
             this.cbxVersion.Name = "cbxVersion";
-            this.cbxVersion.Size = new System.Drawing.Size(330, 21);
+            this.cbxVersion.Size = new System.Drawing.Size(330, 20);
             this.cbxVersion.TabIndex = 4;
             // 
             // btnDown
@@ -147,8 +152,8 @@ namespace VisualStudioDownloader
             // 
             // treeViewWorkload
             // 
-            this.treeViewWorkload.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.treeViewWorkload.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewWorkload.CheckBoxes = true;
             this.treeViewWorkload.Location = new System.Drawing.Point(14, 244);
@@ -255,7 +260,7 @@ namespace VisualStudioDownloader
             this.cbxLanguage.FormattingEnabled = true;
             this.cbxLanguage.Location = new System.Drawing.Point(83, 63);
             this.cbxLanguage.Name = "cbxLanguage";
-            this.cbxLanguage.Size = new System.Drawing.Size(330, 21);
+            this.cbxLanguage.Size = new System.Drawing.Size(330, 20);
             this.cbxLanguage.TabIndex = 11;
             // 
             // label3
@@ -263,15 +268,77 @@ namespace VisualStudioDownloader
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 66);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.Size = new System.Drawing.Size(65, 12);
             this.label3.TabIndex = 10;
             this.label3.Text = "Language：";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(-2, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "FilePath：";
+            // 
+            // tbVsConfigFilePath
+            // 
+            this.tbVsConfigFilePath.Enabled = false;
+            this.tbVsConfigFilePath.Location = new System.Drawing.Point(69, 18);
+            this.tbVsConfigFilePath.Name = "tbVsConfigFilePath";
+            this.tbVsConfigFilePath.Size = new System.Drawing.Size(330, 21);
+            this.tbVsConfigFilePath.TabIndex = 2;
+            // 
+            // btnSelVsconfig
+            // 
+            this.btnSelVsconfig.Location = new System.Drawing.Point(405, 21);
+            this.btnSelVsconfig.Name = "btnSelVsconfig";
+            this.btnSelVsconfig.Size = new System.Drawing.Size(31, 23);
+            this.btnSelVsconfig.TabIndex = 3;
+            this.btnSelVsconfig.Text = "...";
+            this.btnSelVsconfig.UseVisualStyleBackColor = true;
+            this.btnSelVsconfig.Click += new System.EventHandler(this.btnSelVsconfig_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tbVsConfigFilePath);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.btnSelVsconfig);
+            this.groupBox1.Controls.Add(this.btnStart2);
+            this.groupBox1.Controls.Add(this.btnBuild2);
+            this.groupBox1.Location = new System.Drawing.Point(14, 670);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(505, 119);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "使用配置文件";
+            // 
+            // btnStart2
+            // 
+            this.btnStart2.Location = new System.Drawing.Point(169, 55);
+            this.btnStart2.Name = "btnStart2";
+            this.btnStart2.Size = new System.Drawing.Size(80, 23);
+            this.btnStart2.TabIndex = 6;
+            this.btnStart2.Text = "Start";
+            this.btnStart2.UseVisualStyleBackColor = true;
+            this.btnStart2.Click += new System.EventHandler(this.btnDown_Click);
+            // 
+            // btnBuild2
+            // 
+            this.btnBuild2.Location = new System.Drawing.Point(83, 54);
+            this.btnBuild2.Name = "btnBuild2";
+            this.btnBuild2.Size = new System.Drawing.Size(80, 25);
+            this.btnBuild2.TabIndex = 6;
+            this.btnBuild2.Text = "Initiate";
+            this.btnBuild2.UseVisualStyleBackColor = true;
+            this.btnBuild2.Click += new System.EventHandler(this.btnBuild2_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 676);
+            this.ClientSize = new System.Drawing.Size(522, 782);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbxLanguage);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.treeViewWorkload);
@@ -289,6 +356,8 @@ namespace VisualStudioDownloader
             this.Text = "Visual Studio Downloader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -628,5 +697,11 @@ namespace VisualStudioDownloader
         private ComboBox cbxLanguage;
         private Label label3;
         private Button btnBuild;
+        private Label label4;
+        private TextBox tbVsConfigFilePath;
+        private Button btnSelVsconfig;
+        private GroupBox groupBox1;
+        private Button btnStart2;
+        private Button btnBuild2;
     }
 }
